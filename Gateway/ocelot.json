@@ -1,0 +1,62 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/{url}", //下游（转发的服务地址模板）
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5550
+        }
+      ],
+      "UpstreamPathTemplate": "/ocelot/{url}", //上游（请求路径模板）
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      //鉴权
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "serviceA", //指定一个key
+        "AllowedScopes": [ "serviceA" ] //id4的作用域名称
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/{url}", //下游（转发的服务地址模板）
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5551
+        }
+      ],
+      "UpstreamPathTemplate": "/ocelotB/{url}", //上游（请求路径模板）
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      //鉴权
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "serviceB", //指定一个key
+        "AllowedScopes": [ "serviceB" ] //id4的作用域名称
+      }
+    }
+  ]
+}
+
+//{
+//  "Routes": [
+//    {
+//      "DownstreamPathTemplate": "/{url}", //下游（转发的服务地址模板）
+//      "DownstreamScheme": "http",
+//      "UpstreamPathTemplate": "/ocelot/{url}", //上游（请求路径模板）
+//      "UpstreamHttpMethod": [ "Get", "Post" ],
+//      "ServiceName": "ServiceA",
+//      "UseServiceDiscovery": true,
+//      "LoadBalancerOptions": {
+//        "Type": "RoundRobin" //轮询
+//      }
+//    }
+//  ],
+//  "GlobalConfiguration": {
+//    "BaseUrl": "http://localhost:5181",
+//    "ServiceDiscoveryProvider": { //consul 配置信息
+//      "Host": "localhost",
+//      "Port": 8500,
+//      "Type": "Consul"
+//    }
+//  }
+//}
